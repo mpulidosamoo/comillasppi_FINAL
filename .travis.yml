@@ -1,32 +1,3 @@
-
-    services:
-      - mysql
-
-    matrix:
-     include:
-      - php: 7.0
-      - env: MOODLE_BRANCH=MOODLE_32_STABLE MOODLE_CI_VER=2
-
-    before_install:
-      - phpenv config-rm xdebug.ini
-      - cd ../..
-      - composer selfupdate
-      - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^${MOODLE_CI_VER}
-      - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
-      - sleep 10
-
-    install:
-      - moodle-plugin-ci install
-      - xvfb-run -a --server-args="-screen 0 1024x768x24" java -Dwebdriver.firefox.bin=/usr/bin/firefox -jar ${MOODLE_SELENIUM_JAR} -log /tmp/selenium.log &
-      - php -t ${MOODLE_DIR} -S localhost:8000 > /tmp/php-access.log 2> /tmp/php-error.log &
-      - sleep 5s
-
-    script:
-      - moodle-plugin-ci phplint
-      - moodle-plugin-ci codechecker
-      - moodle-plugin-ci phpunit
-      - moodle-plugin-ci behat --moodle=${MOODLE_DIR} --auto-rerun=0
-
 language: php
 
 sudo: false
