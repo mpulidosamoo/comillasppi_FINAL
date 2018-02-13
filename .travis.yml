@@ -27,11 +27,12 @@ env:
         - MOODLE_CI_VER=1
         - MOODLE_DIR=/home/travis/build/moodle
         - MOODLE_SELENIUM_JAR=/home/travis/build/moodle/selenium.jar
+        - MOODLE_BRANCH=MOODLE_32_STABLE MOODLE_CI_VER=2
 
 matrix:
      include:
       - php: 7.0
-      - env: MOODLE_BRANCH=MOODLE_32_STABLE MOODLE_CI_VER=2
+      - env: 
       - DB=pgsql
       - DB=mysqli     
 
