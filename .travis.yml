@@ -28,9 +28,6 @@ env:
         - MOODLE_SELENIUM_JAR=/home/travis/build/moodle/selenium.jar
 
 matrix:
-     include:
-      - php: 7.0
-      - env: MOODLE_BRANCH=MOODLE_32_STABLE MOODLE_CI_VER=2
       - DB=pgsql
       - DB=mysqli     
 
